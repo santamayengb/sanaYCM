@@ -6,16 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 
-class LoginPageWidget extends StatefulWidget {
-  LoginPageWidget({Key key}) : super(key: key);
+class SignUpPageWidget extends StatefulWidget {
+  SignUpPageWidget({Key key}) : super(key: key);
 
   @override
-  _LoginPageWidgetState createState() => _LoginPageWidgetState();
+  _SignUpPageWidgetState createState() => _SignUpPageWidgetState();
 }
 
-class _LoginPageWidgetState extends State<LoginPageWidget> {
+class _SignUpPageWidgetState extends State<SignUpPageWidget> {
   TextEditingController emailfieldController;
-  TextEditingController passfieldController;
+  TextEditingController passfieldController1;
+  TextEditingController passfieldController2;
   bool passfieldVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -23,7 +24,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   void initState() {
     super.initState();
     emailfieldController = TextEditingController();
-    passfieldController = TextEditingController();
+    passfieldController1 = TextEditingController();
+    passfieldController2 = TextEditingController();
     passfieldVisibility = false;
   }
 
@@ -110,7 +112,55 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: TextFormField(
-                          controller: passfieldController,
+                          controller: passfieldController1,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'phon',
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFEAEAEA),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            filled: true,
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Color(0x1EFFFFFF),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFEAEAEA),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                        child: TextFormField(
+                          controller: passfieldController2,
                           obscureText: !passfieldVisibility,
                           decoration: InputDecoration(
                             hintText: 'password',
@@ -184,7 +234,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   ),
                 );
               },
-              text: 'login',
+              text: 'create',
               options: FFButtonOptions(
                 width: 120,
                 height: 40,
