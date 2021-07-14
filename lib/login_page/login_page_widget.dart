@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -14,17 +15,17 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
-  TextEditingController emailfieldController;
   TextEditingController passfieldController;
   bool passfieldVisibility;
+  TextEditingController usernameController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailfieldController = TextEditingController();
     passfieldController = TextEditingController();
     passfieldVisibility = false;
+    usernameController = TextEditingController();
   }
 
   @override
@@ -62,7 +63,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: TextFormField(
-                          controller: emailfieldController,
+                          controller: usernameController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'username',
@@ -174,7 +175,16 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
-                await Navigator.push(
+                final user = await signInWithEmail(
+                  context,
+                  usernameController.text,
+                  passfieldController.text,
+                );
+                if (user == null) {
+                  return;
+                }
+
+                await Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
@@ -182,6 +192,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     reverseDuration: Duration(milliseconds: 300),
                     child: NavBarPage(initialPage: 'LandingPage'),
                   ),
+                  (r) => false,
                 );
               },
               text: 'login',

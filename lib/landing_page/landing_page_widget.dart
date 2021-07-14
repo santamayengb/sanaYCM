@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/flutter_flow_youtube_player.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LandingPageWidget extends StatefulWidget {
   LandingPageWidget({Key key}) : super(key: key);
@@ -145,9 +146,13 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                             onPressed: () async {
                                               await Navigator.push(
                                                 context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CprogramePageWidget(),
+                                                PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  duration: Duration(
+                                                      milliseconds: 300),
+                                                  reverseDuration: Duration(
+                                                      milliseconds: 300),
+                                                  child: CprogramePageWidget(),
                                                 ),
                                               );
                                             },
@@ -230,20 +235,13 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
-                            child: GridView(
-                              padding: EdgeInsets.zero,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 1,
-                              ),
-                              scrollDirection: Axis.vertical,
-                              children: [
-                                Card(
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            scrollDirection: Axis.vertical,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                child: Card(
                                   clipBehavior: Clip.antiAliasWithSaveLayer,
                                   color: Color(0xFFF5F5F5),
                                   child: Column(
@@ -268,21 +266,8 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
                                     ],
                                   ),
                                 ),
-                                Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  color: Color(0xFFF5F5F5),
-                                  child: FlutterFlowYoutubePlayer(
-                                    url:
-                                        'https://www.youtube.com/watch?v=C30hQ0ZSFoM',
-                                    autoPlay: false,
-                                    looping: true,
-                                    mute: false,
-                                    showControls: true,
-                                    showFullScreen: true,
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
                         )
                       ],
