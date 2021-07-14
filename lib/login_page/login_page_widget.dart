@@ -3,6 +3,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
+import '../sign_up_page/sign_up_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -15,17 +16,17 @@ class LoginPageWidget extends StatefulWidget {
 }
 
 class _LoginPageWidgetState extends State<LoginPageWidget> {
+  TextEditingController emailfieldController;
   TextEditingController passfieldController;
   bool passfieldVisibility;
-  TextEditingController usernameController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
+    emailfieldController = TextEditingController();
     passfieldController = TextEditingController();
     passfieldVisibility = false;
-    usernameController = TextEditingController();
   }
 
   @override
@@ -63,7 +64,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: TextFormField(
-                          controller: usernameController,
+                          controller: emailfieldController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'username',
@@ -177,7 +178,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               onPressed: () async {
                 final user = await signInWithEmail(
                   context,
-                  usernameController.text,
+                  emailfieldController.text,
                   passfieldController.text,
                 );
                 if (user == null) {
@@ -219,11 +220,24 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Click here',
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: Color(0xFFFF914D),
+                InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: SignUpPageWidget(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Click here',
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFF914D),
+                    ),
                   ),
                 ),
                 Text(

@@ -1,6 +1,9 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../login_page/login_page_widget.dart';
 import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,18 +17,20 @@ class SignUpPageWidget extends StatefulWidget {
 }
 
 class _SignUpPageWidgetState extends State<SignUpPageWidget> {
-  TextEditingController emailfieldController;
-  TextEditingController passfieldController1;
-  TextEditingController passfieldController2;
+  TextEditingController conpassfieldController;
+  bool conpassfieldVisibility;
+  TextEditingController emailfiledController;
+  TextEditingController passfieldController;
   bool passfieldVisibility;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    emailfieldController = TextEditingController();
-    passfieldController1 = TextEditingController();
-    passfieldController2 = TextEditingController();
+    conpassfieldController = TextEditingController();
+    conpassfieldVisibility = false;
+    emailfiledController = TextEditingController();
+    passfieldController = TextEditingController();
     passfieldVisibility = false;
   }
 
@@ -64,7 +69,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: TextFormField(
-                          controller: emailfieldController,
+                          controller: emailfiledController,
                           obscureText: false,
                           decoration: InputDecoration(
                             hintText: 'username',
@@ -112,55 +117,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                         child: TextFormField(
-                          controller: passfieldController1,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            hintText: 'phon',
-                            hintStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Poppins',
-                              color: Color(0xFFEAEAEA),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 0,
-                              ),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                            ),
-                            filled: true,
-                            prefixIcon: Icon(
-                              Icons.lock,
-                              color: Color(0x1EFFFFFF),
-                            ),
-                          ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFFEAEAEA),
-                          ),
-                          keyboardType: TextInputType.number,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                        child: TextFormField(
-                          controller: passfieldController2,
+                          controller: passfieldController,
                           obscureText: !passfieldVisibility,
                           decoration: InputDecoration(
                             hintText: 'password',
@@ -215,6 +172,67 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                             fontFamily: 'Poppins',
                             color: Color(0xFFEAEAEA),
                           ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                        child: TextFormField(
+                          controller: conpassfieldController,
+                          obscureText: !conpassfieldVisibility,
+                          decoration: InputDecoration(
+                            hintText: 'confirm password',
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: Color(0xFFEAEAEA),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 0,
+                              ),
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
+                              ),
+                            ),
+                            filled: true,
+                            prefixIcon: Icon(
+                              Icons.lock,
+                              color: Color(0x1EFFFFFF),
+                            ),
+                            suffixIcon: InkWell(
+                              onTap: () => setState(
+                                () => conpassfieldVisibility =
+                                    !conpassfieldVisibility,
+                              ),
+                              child: Icon(
+                                conpassfieldVisibility
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                                color: Color(0xFF757575),
+                                size: 22,
+                              ),
+                            ),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFFEAEAEA),
+                          ),
                         ),
                       )
                     ],
@@ -224,7 +242,38 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
             ),
             FFButtonWidget(
               onPressed: () async {
-                await Navigator.push(
+                if (passfieldController.text != conpassfieldController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        "Passwords don't match!",
+                      ),
+                    ),
+                  );
+                  return;
+                }
+
+                final user = await createAccountWithEmail(
+                  context,
+                  emailfiledController.text,
+                  passfieldController.text,
+                );
+                if (user == null) {
+                  return;
+                }
+
+                final createuserCreateData = createCreateuserRecordData(
+                  displayName: '',
+                  email: '',
+                  photoUrl: '',
+                  uid: '',
+                  phoneNumber: '',
+                );
+                await CreateuserRecord.collection
+                    .doc(user.uid)
+                    .update(createuserCreateData);
+
+                await Navigator.pushAndRemoveUntil(
                   context,
                   PageTransition(
                     type: PageTransitionType.fade,
@@ -232,6 +281,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
                     reverseDuration: Duration(milliseconds: 300),
                     child: NavBarPage(initialPage: 'LandingPage'),
                   ),
+                  (r) => false,
                 );
               },
               text: 'create',
@@ -258,15 +308,28 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Click here',
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Poppins',
-                    color: Color(0xFFFF914D),
+                InkWell(
+                  onTap: () async {
+                    await Navigator.push(
+                      context,
+                      PageTransition(
+                        type: PageTransitionType.fade,
+                        duration: Duration(milliseconds: 300),
+                        reverseDuration: Duration(milliseconds: 300),
+                        child: LoginPageWidget(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'Click here',
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Poppins',
+                      color: Color(0xFFFF914D),
+                    ),
                   ),
                 ),
                 Text(
-                  ' to create account',
+                  'to login',
                   style: FlutterFlowTheme.bodyText1.override(
                     fontFamily: 'Poppins',
                     color: Color(0xFFEAEAEA),

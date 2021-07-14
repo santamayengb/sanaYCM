@@ -10,7 +10,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   static Serializer<UsersRecord> get serializer => _$usersRecordSerializer;
 
   @nullable
-  String get username;
+  String get email;
 
   @nullable
   String get password;
@@ -20,7 +20,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   DocumentReference get reference;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
-    ..username = ''
+    ..email = ''
     ..password = '';
 
   static CollectionReference get collection =>
@@ -41,11 +41,11 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 }
 
 Map<String, dynamic> createUsersRecordData({
-  String username,
+  String email,
   String password,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
         UsersRecord((u) => u
-          ..username = username
+          ..email = email
           ..password = password));

@@ -1,8 +1,10 @@
+import '../auth/auth_util.dart';
 import '../cprograme_page/cprograme_page_widget.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/flutter_flow_youtube_player.dart';
+import '../login_page/login_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -31,27 +33,29 @@ class _LandingPageWidgetState extends State<LandingPageWidget> {
           fit: BoxFit.cover,
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              print('IconButton pressed ...');
-            },
-            icon: Icon(
-              Icons.person,
-              color: Color(0xFFEAEAEA),
-              size: 25,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: IconButton(
+              onPressed: () async {
+                await signOut();
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  PageTransition(
+                    type: PageTransitionType.fade,
+                    duration: Duration(milliseconds: 300),
+                    reverseDuration: Duration(milliseconds: 300),
+                    child: LoginPageWidget(),
+                  ),
+                  (r) => false,
+                );
+              },
+              icon: Icon(
+                Icons.person,
+                color: Color(0xFFEAEAEA),
+                size: 25,
+              ),
+              iconSize: 25,
             ),
-            iconSize: 25,
-          ),
-          IconButton(
-            onPressed: () {
-              print('IconButton pressed ...');
-            },
-            icon: Icon(
-              Icons.more_vert,
-              color: Color(0xFFEAEAEA),
-              size: 25,
-            ),
-            iconSize: 25,
           )
         ],
         centerTitle: false,
